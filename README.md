@@ -74,6 +74,20 @@ This project is a Django-based API for handling Frequently Asked Questions (FAQs
 
    The application will be accessible at `http://127.0.0.1:8000/`.
 
+### Running Tests
+
+Run the tests:
+
+```bash
+pytest
+```
+
+To run a specific test file:
+
+```bash
+pytest faq/test_views.py
+```
+
 ### Custom Shell Scripts
 
 - **start.sh**: This script activates the virtual environment and starts the Django development server. You can use it to start the server in an isolated environment.
