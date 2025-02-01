@@ -7,15 +7,15 @@ from faq.services import translate_text, get_cached_translation
 class FAQ(models.Model):
     # Field to store the question in the default language
     question = models.TextField(verbose_name=_("Question"))
-    
+
     # Field to store the answer in rich text format
     answer = RichTextField(verbose_name=_("Answer"))
-    
+
     # Field to store the question translation in Hindi (optional)
     question_hi = models.TextField(
         verbose_name=_("Question in Hindi"), blank=True, null=True
     )
-    
+
     # Field to store the question translation in Bengali (optional)
     question_bn = models.TextField(
         verbose_name=_("Question in Bengali"), blank=True, null=True
