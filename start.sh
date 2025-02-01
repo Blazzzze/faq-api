@@ -7,6 +7,9 @@ source venv/bin/activate
 
 port=8000
 
+# Kill process; if port is already taken
+sudo kill -9 $(lsof -t -i:$port)
+
 python manage.py runserver 0.0.0.0:$port &
 django_server_pid=$!
 
