@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# This script activates the virtual environment and starts the Django development server. 
+# Use it to start the server in an isolated environment.
+
 source venv/bin/activate
 
 port=8000
