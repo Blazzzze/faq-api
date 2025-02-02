@@ -9,6 +9,7 @@ This project is a Django-based API for handling Frequently Asked Questions (FAQs
 - **Caching**: Translations are cached for faster access and to reduce external API calls to the translation service using `redis`.
 - **Rich Text Answers**: Answers can be stored in rich text format using `django-ckeditor`.
 - **Custom API Endpoint**: A custom `list` method in the FAQ viewset that retrieves translated questions based on a language query parameter (`lang`).
+- **Admin Portal**: A web-based interface to manage FAQs, accessible at `/admin/`.
 
 ## Technologies Used
 
@@ -32,6 +33,23 @@ This project is a Django-based API for handling Frequently Asked Questions (FAQs
 
 ### Installation
 
+#### **For Debian-based Linux (Recommended)**
+
+If you're using a **Debian-based Linux** system, you can simplify the setup by running the `setup.sh` script:
+
+```bash
+bash setup.sh
+```
+
+This will:
+
+- Install Redis
+- Create a Python virtual environment
+- Install dependencies
+- Apply database migrations
+
+#### **Manual Setup**
+
 1. **Clone the repository**:
 
    ```bash
@@ -39,26 +57,24 @@ This project is a Django-based API for handling Frequently Asked Questions (FAQs
    cd faq-api
    ```
 
-2. **Install dependencies**:
-   - Install Python dependencies:
+2. **Set up a virtual environment and install dependencies**:
 
-     ```bash
-     python3 -m venv venv
-     source venv/bin/activate
-     pip install -r requirements.txt
-     ```
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
 
-   - Install Redis:
-     Follow the [Redis installation guide](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-linux/#connect-to-redis) to install Redis.
+   If this doesn't work for you, please refer to <https://docs.python.org/3/library/venv.html> for more information on setting up a virtual environment.
 
-3. **Setup Redis**:
-   - Ensure Redis is installed and running.
-   - If you are using Ubuntu, you can install Redis with:
+3. **Install Redis**:
 
-     ```bash
-     sudo apt-get install redis-server
-     sudo systemctl start redis-server
-     ```
+   ```bash
+   sudo apt-get install redis-server
+   sudo systemctl start redis-server
+   ```
+
+   If this doesn't work for you, please refer to <https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/> for more information on setting up redis-server.
 
 4. **Run database migrations**:
 
@@ -66,13 +82,33 @@ This project is a Django-based API for handling Frequently Asked Questions (FAQs
    python manage.py migrate
    ```
 
-5. **Start the development server**:
+5. **Create a Superuser for Admin Portal**:
+
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+   Follow the prompts to create an admin user.
+
+6. **Start the development server**:
 
    ```bash
    python manage.py runserver 0.0.0.0:8000
    ```
 
    The application will be accessible at `http://127.0.0.1:8000/`.
+
+### Admin Portal
+
+The **Admin Portal** is available at:
+
+```
+http://127.0.0.1:8000/admin/
+```
+
+- **Login using the credentials created with `createsuperuser`**.
+- From the admin panel, you can manage FAQs easily using a user-friendly interface.
+- **Supports WYSIWYG editing** for answers using CKEditor.
 
 ### Running Tests
 
@@ -85,13 +121,13 @@ pytest
 To run a specific test file:
 
 ```bash
-pytest faq/test_views.py
+pytest faq/tests/test_views.py
 ```
 
 ### Custom Shell Scripts
 
 - **start.sh**: This script activates the virtual environment and starts the Django development server. You can use it to start the server in an isolated environment.
-- **setup.sh**: This script installs Redis, sets up Python dependencies, and prepares the environment. **This script only supports debian based linux**.
+- **setup.sh**: This script installs Redis, sets up Python dependencies, and prepares the environment. **This script only supports Debian-based Linux**.
 
 #### Usage of Shell Scripts
 
@@ -133,3 +169,5 @@ pytest faq/test_views.py
 
 - **`translate_text()`**: Uses the Google Translate API to translate questions.
 - **`get_cached_translation()`**: Retrieves translations from the cache or generates and caches them if not present.
+
+With these changes, your setup process is now streamlined, the admin portal is clearly mentioned, and Debian users can quickly get started with the `setup.sh` script. 🚀
