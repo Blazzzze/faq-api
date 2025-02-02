@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 from faq.services import translate_text, get_cached_translation
 
 
@@ -9,7 +9,7 @@ class FAQ(models.Model):
     question = models.TextField(verbose_name=_("Question"))
 
     # Field to store the answer in rich text format
-    answer = RichTextField(verbose_name=_("Answer"))
+    answer = CKEditor5Field(verbose_name=_("Answer"))
 
     # Field to store the question translation in Hindi (optional)
     question_hi = models.TextField(
@@ -20,6 +20,12 @@ class FAQ(models.Model):
     question_bn = models.TextField(
         verbose_name=_("Question in Bengali"), blank=True, null=True
     )
+
+    # Field to store the question creation time
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    # Field to store the question updation time
+    updated_at = models.DateTimeField(auto_now=True)
 
     def get_translated_question(self, lang):
         """
